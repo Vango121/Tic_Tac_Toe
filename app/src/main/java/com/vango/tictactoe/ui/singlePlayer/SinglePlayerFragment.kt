@@ -31,7 +31,10 @@ class SinglePlayerFragment : Fragment() {
                 R.layout.single_player_fragment, container, false
             )
         binding.buttonFriend.setOnClickListener {
-            (activity as MainActivity?)?.replaceFragment(SingleGame::class.java)
+            (activity as MainActivity?)?.replaceFragment(SingleGame::class.java,"single")
+        }
+        binding.buttonAi.setOnClickListener {
+            (activity as MainActivity?)?.replaceFragment(SingleGame::class.java,"AI")
         }
         return binding.root
     }
