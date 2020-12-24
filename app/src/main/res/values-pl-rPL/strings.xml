@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kółko i krzyżyk</string>
+    <string name="single_player">Graj</string>
+    <string name="multi_player">Graj online</string>
+    <string name="settings">Ustawienia</string>
+    <string name="about_game">O grze</string>
+    <string name="restart">Resetuj</string>
+</resources>
