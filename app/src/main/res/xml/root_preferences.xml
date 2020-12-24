@@ -1,0 +1,25 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory android:title="Single Player"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        android:textSize="30sp"
+        android:layout="@layout/category_layout">
+        <ListPreference
+            android:layout="@layout/item_layout"
+            app:allowDividerAbove="true"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
+            android:defaultValue="1"
+            android:entries="@array/level_entries"
+            android:entryValues="@array/level_entries"
+            android:key="list_preference_1"
+            android:title="Level"
+            android:summary="Description"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

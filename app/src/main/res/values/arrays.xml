@@ -1,0 +1,8 @@
+<resources>
+    <!-- level Preference -->
+    <string-array name="level_entries">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

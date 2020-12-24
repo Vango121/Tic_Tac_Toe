@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.vango.tictactoe.MainActivity
 import com.vango.tictactoe.R
+import com.vango.tictactoe.SettingsFragment
 import com.vango.tictactoe.databinding.MainFragmentBinding
 import com.vango.tictactoe.ui.singlePlayer.SinglePlayerFragment
 
@@ -31,6 +32,9 @@ class MainFragment : Fragment() {
             )
         binding.buttonSingle.setOnClickListener {
             (activity as MainActivity?)?.replaceFragment(SinglePlayerFragment::class.java)
+        }
+        binding.buttonSetting.setOnClickListener {
+            (activity as MainActivity?)?.replaceFragment(SettingsFragment::class.java)
         }
         return binding.root
     }
