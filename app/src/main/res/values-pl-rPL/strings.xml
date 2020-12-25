@@ -6,4 +6,5 @@
     <string name="settings">Ustawienia</string>
     <string name="about_game">O grze</string>
     <string name="restart">Resetuj</string>
+    <string name="single_player_settings">Pojedyńczy gracz</string>
 </resources>

@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <PreferenceCategory android:title="Single Player"
+    <PreferenceCategory android:title="@string/single_player_settings"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true"
         app:allowDividerBelow="true"
@@ -16,7 +16,7 @@
             android:defaultValue="1"
             android:entries="@array/level_entries"
             android:entryValues="@array/level_entries"
-            android:key="list_preference_1"
+            android:key="list_preference_level"
             android:title="Level"
             android:summary="Description"
             />

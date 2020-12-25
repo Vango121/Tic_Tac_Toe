@@ -13,6 +13,7 @@ import androidx.core.view.get
 import androidx.core.view.iterator
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import com.vango.tictactoe.GFG
 import com.vango.tictactoe.R
 import com.vango.tictactoe.databinding.SingleGameFragmentBinding
@@ -35,26 +36,26 @@ class SingleGame : Fragment() {
                 inflater,
                 R.layout.single_game_fragment, container, false
             )
-        binding.viewmodel=viewModel
+        binding.viewmodel = viewModel
         getDataFromPreviousFragment()
         viewModel.boardClickedImg.observe(viewLifecycleOwner, {
             when (it.second) {
                 true -> {
                     it.first.setImageResource(R.drawable.circle)
                     val move = viewModel.findmove()
-                    val view : ImageView = binding.board.get(move) as ImageView
-                    view.performClick()
-                }
+                    Log.i("ai move",move.toString())
+                    val view: ImageView = binding.board.get(move) as ImageView
+                    view.callOnClick()                }
                 false -> it.first.setImageResource(R.drawable.cross)
             }
             it.first.isEnabled = false
         })
-        viewModel.gameResult.observe(viewLifecycleOwner,{
+        viewModel.gameResult.observe(viewLifecycleOwner, {
             disableBoard()
-            when(it){
-                0-> Toast.makeText(context,"Remis",Toast.LENGTH_SHORT).show()
-                1 -> Toast.makeText(context,"wygralo kolko",Toast.LENGTH_SHORT).show()
-                2 -> Toast.makeText(context,"wygral krzyzyk",Toast.LENGTH_SHORT).show()
+            when (it) {
+                0 -> Toast.makeText(context, "Remis", Toast.LENGTH_SHORT).show()
+                1 -> Toast.makeText(context, "wygralo kolko", Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(context, "wygral krzyzyk", Toast.LENGTH_SHORT).show()
             }
         })
 //        viewModel.count.observe(viewLifecycleOwner,{
@@ -67,16 +68,20 @@ class SingleGame : Fragment() {
 //            view.setImageResource(R.drawable.cross)
 //        }
 //        })
-
+        viewModel.level = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString("list_preference_level", "1")
+            .toString()
         return binding.root
     }
-    fun disableBoard(){
-        for (view in binding.board){
-            view.isEnabled=false
+
+    fun disableBoard() {
+        for (view in binding.board) {
+            view.isEnabled = false
         }
         binding.buttonRestart.visibility = View.VISIBLE
     }
-    fun getDataFromPreviousFragment(){
+
+    fun getDataFromPreviousFragment() {
         viewModel.setGameType(arguments?.getString("type"))
     }
 

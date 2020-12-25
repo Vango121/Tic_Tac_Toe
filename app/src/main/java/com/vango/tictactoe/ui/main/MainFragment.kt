@@ -2,12 +2,14 @@ package com.vango.tictactoe.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import com.vango.tictactoe.MainActivity
 import com.vango.tictactoe.R
 import com.vango.tictactoe.SettingsFragment
@@ -35,6 +37,7 @@ class MainFragment : Fragment() {
         }
         binding.buttonSetting.setOnClickListener {
             (activity as MainActivity?)?.replaceFragment(SettingsFragment::class.java)
+
         }
         return binding.root
     }
