@@ -42,10 +42,12 @@ class SingleGame : Fragment() {
             when (it.second) {
                 true -> {
                     it.first.setImageResource(R.drawable.circle)
-                    val move = viewModel.findmove()
-                    Log.i("ai move",move.toString())
-                    val view: ImageView = binding.board.get(move) as ImageView
-                    view.callOnClick()                }
+                    if(viewModel.getGameType()){
+                        val move = viewModel.findmove()
+                        val view: ImageView = binding.board.get(move) as ImageView
+                        view.callOnClick()
+                    }
+                    }
                 false -> it.first.setImageResource(R.drawable.cross)
             }
             it.first.isEnabled = false
@@ -56,6 +58,7 @@ class SingleGame : Fragment() {
                 0 -> Toast.makeText(context, "Remis", Toast.LENGTH_SHORT).show()
                 1 -> Toast.makeText(context, "wygralo kolko", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(context, "wygral krzyzyk", Toast.LENGTH_SHORT).show()
+                3 -> restartBoard()
             }
         })
 //        viewModel.count.observe(viewLifecycleOwner,{
@@ -79,6 +82,14 @@ class SingleGame : Fragment() {
             view.isEnabled = false
         }
         binding.buttonRestart.visibility = View.VISIBLE
+    }
+    fun restartBoard(){
+        for (view in binding.board) {
+            view.isEnabled = true
+            val v = view as ImageView
+            v.setImageResource(R.drawable.empty)
+        }
+        binding.buttonRestart.visibility = View.GONE
     }
 
     fun getDataFromPreviousFragment() {

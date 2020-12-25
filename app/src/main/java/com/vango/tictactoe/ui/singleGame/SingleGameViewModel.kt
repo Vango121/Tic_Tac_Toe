@@ -208,4 +208,12 @@ class SingleGameViewModel : ViewModel() {
         conditions.forEach { if(list.containsAll(it.toList())) return true }
         return false
     }
+    fun restartButton(view: View){
+        circleList.clear()
+        crossList.clear()
+        circle=true
+        game = true
+        countint = 0
+        _gameResult.postValue(3)
+    }
 }
