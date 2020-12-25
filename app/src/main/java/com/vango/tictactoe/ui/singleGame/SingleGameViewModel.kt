@@ -50,7 +50,7 @@ class SingleGameViewModel : ViewModel() {
 //                addValToBoard(tag,'o')
                     circleList.add(view.getTag().toString())
                     if (checkIfWon(circleList)) {
-                        _gameResult.postValue(1)
+                        _gameResult.value = (1)
                         game=false
                     }
                 }
@@ -59,7 +59,7 @@ class SingleGameViewModel : ViewModel() {
 //                addValToBoard(tag,'x')
                     crossList.add(view.getTag().toString())
                     if (checkIfWon(crossList)) {
-                        _gameResult.postValue(2)
+                        _gameResult.value=(2)
                         game=false
                     }
                 }
@@ -71,9 +71,9 @@ class SingleGameViewModel : ViewModel() {
             )
             _boardClickedImg.postValue(valueToPass)
             circle = !circle
-            if (countint == 9) {
+            if (countint == 9 && _gameResult.value != 1 && _gameResult.value != 2) {
                 game=false
-                _gameResult.postValue(0)
+                _gameResult.value = (0)
             }
         }
     }
@@ -91,13 +91,11 @@ class SingleGameViewModel : ViewModel() {
         if(countint<9){
             while(crossList.contains(move.toString()) || circleList.contains(move.toString())){
                 move = Random.nextInt(0,9)
-                Log.i("move",move.toString())
             }
         }
         return move
     }
     fun level2Move() : Int {
-
         val conditions = arrayOf(
             arrayOf("0", "1", "2"),
             arrayOf("3", "4", "5"),
@@ -114,7 +112,6 @@ class SingleGameViewModel : ViewModel() {
             conditions.forEach {
                 it.forEach {cond ->
                     if(crossList.contains(cond)) {
-                        Log.i("i counter","$i no i $cond")
                         i++
                     }
                     if(i==2) {
@@ -125,11 +122,10 @@ class SingleGameViewModel : ViewModel() {
                 i = 0
             }
         }
-        Log.i("size ",list.size.toString())
         if(list.size == 3){
             list.forEach {
-                if(!crossList.contains(it)) {
-                    Log.i("it",it)
+                if(!crossList.contains(it) && !circleList.contains(it)) {
+                    Log.i("defense ", it)
                     return it.toInt()
                 }
             }
@@ -137,7 +133,44 @@ class SingleGameViewModel : ViewModel() {
         return level1Move()
     }
     fun level3Move() : Int{
-        return 1
+        val conditions = arrayOf(
+            arrayOf("0", "1", "2"),
+            arrayOf("3", "4", "5"),
+            arrayOf("6", "7", "8"),
+            arrayOf("0", "3", "6"),
+            arrayOf("1", "4", "7"),
+            arrayOf("2", "5", "8"),
+            arrayOf("0", "4", "8"),
+            arrayOf("2", "4", "6")
+        )
+        var i = 0
+        var list = arrayOf("")
+        run loop@{
+            conditions.forEach {
+                it.forEachIndexed {id,cond ->
+                    if(circleList.contains(cond)) {
+                        Log.i("i counter3 lv","$i no i $cond")
+                        i++
+                    }
+                    if(i==2) {
+                        conditions.drop(id)
+                        list = it
+                        return@loop
+                    }
+                }
+                i = 0
+            }
+        }
+        Log.i("size 3lv",list.size.toString())
+        if(list.size == 3){
+            list.forEach {
+                if(!crossList.contains(it) && !circleList.contains(it)) {
+                    Log.i("it3lv",it)
+                    return it.toInt()
+                }
+            }
+        }
+        return level2Move()
     }
     fun setGameType(type: String?){
         if (type != null) {
