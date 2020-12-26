@@ -9,4 +9,7 @@
     <string name="single_player_settings">Pojedyńczy gracz</string>
     <string name="create_lobby">Utwórz lobby</string>
     <string name="join_lobby">Dołącz do lobby</string>
+    <string name="cancel">Anuluj</string>
+    <string name="enter_lobby_id">Podaj id lobby</string>
+    <string name="text_copied">Skopiowano tekst do schowka</string>
 </resources>

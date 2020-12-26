@@ -9,5 +9,8 @@
     <string name="single_player_settings">Single Player</string>
     <string name="create_lobby">Create Lobby</string>
     <string name="join_lobby">Join lobby</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_lobby_id">Enter lobby id</string>
+    <string name="text_copied">Text was copied to the clipboard</string>
 
 </resources>
