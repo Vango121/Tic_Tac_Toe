@@ -7,5 +7,7 @@
     <string name="about_game">About Game</string>
     <string name="restart">Restart</string>
     <string name="single_player_settings">Single Player</string>
+    <string name="create_lobby">Create Lobby</string>
+    <string name="join_lobby">Join lobby</string>
 
 </resources>

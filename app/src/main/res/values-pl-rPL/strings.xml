@@ -7,4 +7,6 @@
     <string name="about_game">O grze</string>
     <string name="restart">Resetuj</string>
     <string name="single_player_settings">Pojedyńczy gracz</string>
+    <string name="create_lobby">Utwórz lobby</string>
+    <string name="join_lobby">Dołącz do lobby</string>
 </resources>
