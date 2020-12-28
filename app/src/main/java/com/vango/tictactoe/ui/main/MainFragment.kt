@@ -11,7 +11,7 @@ import com.vango.tictactoe.MainActivity
 import com.vango.tictactoe.R
 import com.vango.tictactoe.SettingsFragment
 import com.vango.tictactoe.databinding.MainFragmentBinding
-import com.vango.tictactoe.Online_fragment
+import com.vango.tictactoe.ui.onlineFragment.Online_fragment
 import com.vango.tictactoe.ui.singlePlayer.SinglePlayerFragment
 
 class MainFragment : Fragment() {

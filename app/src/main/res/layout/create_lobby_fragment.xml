@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    tools:context=".CreateLobby">
+    tools:context=".ui.createLobby.CreateLobby">
     <data>
         <variable
             name="viewmodel"
-            type="com.vango.tictactoe.CreateLobbyViewModel" />
+            type="com.vango.tictactoe.ui.createLobby.CreateLobbyViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

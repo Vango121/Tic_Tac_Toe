@@ -1,4 +1,4 @@
-package com.vango.tictactoe
+package com.vango.tictactoe.ui.onlineFragment
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -11,8 +11,14 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.vango.tictactoe.MainActivity
+import com.vango.tictactoe.R
 import com.vango.tictactoe.databinding.OnlineFragmentBinding
+import com.vango.tictactoe.ui.createLobby.CreateLobby
+import com.vango.tictactoe.ui.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Online_fragment : Fragment() {
 
     companion object {
@@ -36,6 +42,12 @@ class Online_fragment : Fragment() {
         binding.buttonJoin.setOnClickListener {
             dialog()
         }
+        viewModel.gameActive.observe(viewLifecycleOwner){
+            if(it){
+                    Log.i("true",it.toString())
+                (activity as MainActivity?)?.replaceFragment(MainFragment::class.java)
+            }
+        }
         return binding.root
     }
 
@@ -52,7 +64,7 @@ class Online_fragment : Fragment() {
         alertDialog.show()
     }
     fun connectToLobby(lobbyId : String){
-        Log.i("lobby id ", lobbyId)
+        viewModel.connectToLobby(lobbyId)
     }
 
 }
