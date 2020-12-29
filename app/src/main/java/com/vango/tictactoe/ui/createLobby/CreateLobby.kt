@@ -18,7 +18,9 @@ import com.vango.tictactoe.MainActivity
 import com.vango.tictactoe.R
 import com.vango.tictactoe.databinding.CreateLobbyFragmentBinding
 import com.vango.tictactoe.ui.main.MainFragment
+import com.vango.tictactoe.ui.singleGame.SingleGame
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class CreateLobby : Fragment() {
@@ -28,8 +30,10 @@ class CreateLobby : Fragment() {
     }
     private lateinit var database: DatabaseReference
     private lateinit var binding: CreateLobbyFragmentBinding
+    @ExperimentalCoroutinesApi
     private val viewModel: CreateLobbyViewModel by viewModels()
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +53,7 @@ class CreateLobby : Fragment() {
         }
         viewModel.activeGame.observe(viewLifecycleOwner){
             if(it==1){
-                (activity as MainActivity?)?.replaceFragment(MainFragment::class.java)
+                (activity as MainActivity?)?.replaceFragment(SingleGame::class.java,"onlineh"+viewModel.getLobbyId())
             }
         }
         return binding.root

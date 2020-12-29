@@ -17,7 +17,9 @@ import androidx.preference.PreferenceManager
 import com.vango.tictactoe.GFG
 import com.vango.tictactoe.R
 import com.vango.tictactoe.databinding.SingleGameFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SingleGame : Fragment() {
 
     companion object {
@@ -42,7 +44,7 @@ class SingleGame : Fragment() {
             when (it.second) {
                 true -> {
                     it.first.setImageResource(R.drawable.circle)
-                    if(viewModel.getGameType()){
+                    if(viewModel.getGameType()){ // check if this is ai type
                         val move = viewModel.findmove()
                         val view: ImageView = binding.board.get(move) as ImageView
                         view.callOnClick()
@@ -51,6 +53,10 @@ class SingleGame : Fragment() {
                 false -> it.first.setImageResource(R.drawable.cross)
             }
             it.first.isEnabled = false
+        })
+        viewModel.nextMove.observe(viewLifecycleOwner,{
+            val view: ImageView = binding.board.get(it.toInt()) as ImageView
+            view.callOnClick()
         })
         viewModel.gameResult.observe(viewLifecycleOwner, {
             disableBoard()

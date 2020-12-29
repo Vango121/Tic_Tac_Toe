@@ -28,7 +28,6 @@ class OnlineFragmentRepository @Inject constructor(@ApplicationContext val conte
     @ExperimentalCoroutinesApi
     fun initializeGameInDB(lobbyId: String): Flow<Boolean> = callbackFlow {
 
-        val livedata = MutableLiveData<Boolean>()
         val myRef = database.getReference("/$lobbyId").child("active")
 
         val listener = object : ValueEventListener {

@@ -16,7 +16,9 @@ import com.vango.tictactoe.R
 import com.vango.tictactoe.databinding.OnlineFragmentBinding
 import com.vango.tictactoe.ui.createLobby.CreateLobby
 import com.vango.tictactoe.ui.main.MainFragment
+import com.vango.tictactoe.ui.singleGame.SingleGame
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class Online_fragment : Fragment() {
@@ -26,7 +28,9 @@ class Online_fragment : Fragment() {
     }
     private lateinit var binding: OnlineFragmentBinding
     private val  viewModel: OnlineFragmentViewModel by viewModels()
+    private lateinit var lobbyId: String
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,13 +48,13 @@ class Online_fragment : Fragment() {
         }
         viewModel.gameActive.observe(viewLifecycleOwner){
             if(it){
-                    Log.i("true",it.toString())
-                (activity as MainActivity?)?.replaceFragment(MainFragment::class.java)
+                (activity as MainActivity?)?.replaceFragment(SingleGame::class.java,"online;"+lobbyId)
             }
         }
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     fun dialog(){
         val editText = EditText(context)
         val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -63,7 +67,9 @@ class Online_fragment : Fragment() {
         }
         alertDialog.show()
     }
+    @ExperimentalCoroutinesApi
     fun connectToLobby(lobbyId : String){
+        this.lobbyId=lobbyId
         viewModel.connectToLobby(lobbyId)
     }
 

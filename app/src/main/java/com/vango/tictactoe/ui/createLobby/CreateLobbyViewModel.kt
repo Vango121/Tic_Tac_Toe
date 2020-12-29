@@ -16,14 +16,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLobbyRepository) :
     ViewModel() {
     private var _bestOfValue = MutableLiveData("1")
     val bestOfValue: LiveData<String>
         get() = _bestOfValue
-    private var _lobbyId = MutableLiveData<String>()
-    val lobbyId: LiveData<String>
-        get() = _lobbyId
+//    private var _lobbyId = MutableLiveData<String>()
+//    val lobbyId: LiveData<String>
+//        get() = _lobbyId
+    private var lobbyId = ""
     private var _activeGame = MutableLiveData<Int>()
     val activeGame: LiveData<Int>
         get() = _activeGame
@@ -53,11 +55,11 @@ class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLo
         val lobbyIdString = (1..7)
             .map { chars.random() }
             .joinToString("")
-        _lobbyId.postValue(lobbyIdString)
-        repository.initializeGameInDB(lobbyIdString)
+        lobbyId = lobbyIdString
+        repository.initializeGameInDB(lobbyIdString,_bestOfValue.value?.toInt()!!)
         fetchGame()
     }
-
+    fun getLobbyId(): String = lobbyId
     @ExperimentalCoroutinesApi
     fun fetchGame() {
         viewModelScope.launch {
