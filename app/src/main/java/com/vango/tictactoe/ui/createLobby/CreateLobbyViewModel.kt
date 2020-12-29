@@ -22,9 +22,6 @@ class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLo
     private var _bestOfValue = MutableLiveData("1")
     val bestOfValue: LiveData<String>
         get() = _bestOfValue
-//    private var _lobbyId = MutableLiveData<String>()
-//    val lobbyId: LiveData<String>
-//        get() = _lobbyId
     private var lobbyId = ""
     private var _activeGame = MutableLiveData<Int>()
     val activeGame: LiveData<Int>

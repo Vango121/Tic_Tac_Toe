@@ -26,16 +26,8 @@ class CreateLobbyRepository @Inject constructor() {
     }
     fun initializeGameInDB(lobbyId : String, bestOf: Int){
         gameReference = database.getReference("/$lobbyId")
-        //myRef.setValue("Hello, World!")
-        Log.i("initalize","yes")
         val game = Game(0, bestOf)
-        gameReference.setValue(game).addOnFailureListener {
-            Log.i("blad",it.message.toString())
-        }.addOnSuccessListener {
-            Log.i("saved","")
-        }.addOnCanceledListener {
-            Log.i("canceled","")
-        }
+        gameReference.setValue(game)
     }
     @ExperimentalCoroutinesApi
     fun getMoves(): Flow<Result<Game>> = callbackFlow{
@@ -43,7 +35,6 @@ class CreateLobbyRepository @Inject constructor() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 val game = dataSnapshot.getValue<Game>()
-                Log.i("game",game?.active.toString())
                 this@callbackFlow.sendBlocking(Result.success(game))
                 // ...
             }

@@ -40,7 +40,6 @@ class SingleGameRepository @Inject constructor() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 val game = dataSnapshot.getValue<Game>()
-                Log.i("game",game?.active.toString())
                 this@callbackFlow.sendBlocking(Result.success(game))
                 // ...
             }

@@ -55,7 +55,6 @@ class SingleGame : Fragment() {
             it.first.isEnabled = false
         })
         viewModel.nextMove.observe(viewLifecycleOwner,{
-            Log.i("next move","next move")
             val view: ImageView = binding.board.get(it.toInt()) as ImageView
             view.callOnClick()
         })
@@ -68,16 +67,7 @@ class SingleGame : Fragment() {
                 3 -> restartBoard()
             }
         })
-//        viewModel.count.observe(viewLifecycleOwner,{
-//            Log.i("it",it.toString())
-//        if(it%2!=0 && viewModel.getGameType()){
-//            val move = viewModel.findmove()
-//            Log.i("move",move.toString())
-//            Log.i("tag",binding.board.get(move).getTag().toString())
-//            val view : ImageView = binding.board.get(move) as ImageView
-//            view.setImageResource(R.drawable.cross)
-//        }
-//        })
+
         viewModel.level = PreferenceManager.getDefaultSharedPreferences(context)
             .getString("list_preference_level", "1")
             .toString()

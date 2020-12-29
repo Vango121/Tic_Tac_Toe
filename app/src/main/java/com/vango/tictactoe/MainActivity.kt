@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         currentFragment = fragmentClass.name
-        Log.i("crere", currentFragment)
         // Insert the fragment by replacing any existing fragment
         val fragmentManager = supportFragmentManager
         if(currentFragment == "com.vango.tictactoe.ui.createLobby.CreateLobby" || currentFragment == "com.vango.tictactoe.ui.onlineFragment.Online_fragment"){
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
         // Insert the fragment by replacing any existing fragment
         currentFragment = fragmentClass.name
-        Log.i("crere", currentFragment)
         val fragmentManager = supportFragmentManager
             fragmentManager.beginTransaction().replace(R.id.container, fragment!!)
                 .commit()
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         val count = supportFragmentManager.backStackEntryCount
         if ((count == 0 && currentFragment !="com.vango.tictactoe.ui.singleGame.SingleGame") || currentFragment == "com.vango.tictactoe.ui.main.MainFragment") {
             finish()
-            //super.onBackPressed()
         } else {
             if (currentFragment == "com.vango.tictactoe.ui.singleGame.SingleGame") {
                 i++

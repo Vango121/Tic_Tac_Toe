@@ -51,18 +51,11 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
         }
 
     fun boardOnClick(view: View) {
-        if (crossList.size > 0) {
-            for (i in 0..crossList.size - 1) {
-                Log.i("cross list", i.toString() + " " + crossList.get(i))
-            }
-        }
         if (game) {
-            //circle = countint%2 == 0
             countint++
             when (circle) {
                 true -> {
-                    //val tag = view.getTag().toString()
-//                addValToBoard(tag,'o')
+
                     if(!circleList.contains(view.getTag().toString())) circleList.add(view.getTag().toString())
                     if(online){
                         repository.passCircleList(circleList)
@@ -73,8 +66,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                     }
                 }
                 false -> {
-                    //val tag = view.getTag().toString()
-//                addValToBoard(tag,'x')
                     if(!crossList.contains(view.getTag().toString())) crossList.add(view.getTag().toString())
                     if(online){
                         repository.passCrossList(crossList)
@@ -86,10 +77,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                 }
             }
             val valueToPass = Pair(view as ImageView, circle)
-            Log.i(
-                "val pass",
-                valueToPass.first.getTag().toString() + " " + valueToPass.second.toString()
-            )
             _boardClickedImg.postValue(valueToPass)
             circle = !circle
             if (countint == 9 && _gameResult.value != 1 && _gameResult.value != 2) {
@@ -148,7 +135,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
         if (list.size == 3) {
             list.forEach {
                 if (!crossList.contains(it) && !circleList.contains(it)) {
-                    Log.i("defense ", it)
                     return it.toInt()
                 }
             }
@@ -173,7 +159,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
             conditions.forEach {
                 it.forEachIndexed { id, cond ->
                     if (circleList.contains(cond)) {
-                        Log.i("i counter3 lv", "$i no i $cond")
                         i++
                     }
                     if (i == 2) {
@@ -189,7 +174,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
         if (list.size == 3) {
             list.forEach {
                 if (!crossList.contains(it) && !circleList.contains(it)) {
-                    Log.i("it3lv", it)
                     return it.toInt()
                 }
             }
@@ -216,7 +200,6 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                 host = true
                 lobbyId = type.substring(7)
                 repository.initReference(lobbyId)
-                //repository.setActive()
                 fetchGame()
             }
         }
@@ -235,19 +218,16 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                                 circleList = game.circleList
                                 dbGame = game
                                 if (host) {
-                                    Log.i("dane host",game.hostCircle.toString()+" "+ crossList.size+" "+ circle)
                                     if (game.hostCircle && crossList.size > 0 && !circle) _nextMove.value =
                                         crossList.last()
                                     else if (!game.hostCircle && circleList.size > 0 && circle) _nextMove.value =
                                         circleList.last()
                                 } else {
-                                    Log.i("dane nie host",game.hostCircle.toString()+" "+ crossList.size+" "+ circle)
                                     if (game.hostCircle && circleList.size > 0 && circle) _nextMove.value =
                                         circleList.last()
                                     if (!game.hostCircle && crossList.size > 0 && !circle) _nextMove.value =
                                         crossList.last()
                                 }
-                                //circle = (crossList.size+circleList.size)%2 == 0
                             }
                         }
                     }
