@@ -55,6 +55,7 @@ class SingleGame : Fragment() {
             it.first.isEnabled = false
         })
         viewModel.nextMove.observe(viewLifecycleOwner,{
+            Log.i("next move","next move")
             val view: ImageView = binding.board.get(it.toInt()) as ImageView
             view.callOnClick()
         })

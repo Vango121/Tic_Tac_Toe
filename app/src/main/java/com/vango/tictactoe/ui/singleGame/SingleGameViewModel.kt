@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.vango.tictactoe.GFG
+import com.vango.tictactoe.models.Game
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -34,6 +35,7 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
         get() = _nextMove
     private var game = true
     private var countint = 0
+    private lateinit var dbGame: Game
     private var board = arrayOf(
         charArrayOf('_', '_', '_'),
         charArrayOf('_', '_', '_'),
@@ -55,12 +57,16 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
             }
         }
         if (game) {
+            //circle = countint%2 == 0
             countint++
             when (circle) {
                 true -> {
                     //val tag = view.getTag().toString()
 //                addValToBoard(tag,'o')
-                    circleList.add(view.getTag().toString())
+                    if(!circleList.contains(view.getTag().toString())) circleList.add(view.getTag().toString())
+                    if(online){
+                        repository.passCircleList(circleList)
+                    }
                     if (checkIfWon(circleList)) {
                         _gameResult.value = (1)
                         game = false
@@ -69,7 +75,10 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                 false -> {
                     //val tag = view.getTag().toString()
 //                addValToBoard(tag,'x')
-                    crossList.add(view.getTag().toString())
+                    if(!crossList.contains(view.getTag().toString())) crossList.add(view.getTag().toString())
+                    if(online){
+                        repository.passCrossList(crossList)
+                    }
                     if (checkIfWon(crossList)) {
                         _gameResult.value = (2)
                         game = false
@@ -191,19 +200,25 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
     @ExperimentalCoroutinesApi
     fun setGameType(type: String?) {
         if (type != null) {
+            var subType: String = ""
+            if(type.length>7){
+                subType = type.substring(0,7)
+            }
             if (type == "AI") {
                 gameAi = true
-            } else if (type.substring(0,7) == "online;") {
+            } else if (subType == "online;") {
                 online = true
                 lobbyId = type.substring(7)
                 repository.initReference(lobbyId)
-
-            } else if (type.substring(0,7) == "onlineh"){
+                fetchGame()
+            } else if (subType == "onlineh"){
                 online = true
+                host = true
                 lobbyId = type.substring(7)
                 repository.initReference(lobbyId)
+                //repository.setActive()
+                fetchGame()
             }
-            fetchGame()
         }
     }
 
@@ -214,14 +229,26 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                 when {
                     it.isSuccess -> {
                         val game = it.getOrNull()
-                        crossList = game?.crossList!!
-                        circleList = game.circleList
-                        if(host){
-                            if(game.hostCircle) _nextMove.value = crossList.last()
-                            else if(!game.hostCircle) _nextMove.value = circleList.last()
-                        }else{
-                            if(game.hostCircle) _nextMove.value = circleList.last()
-                            if(!game.hostCircle) _nextMove.value = crossList.last()
+                        if (game!=null){
+                            if(!crossList.containsAll(game.crossList) || !circleList.containsAll(game.circleList)) {
+                                crossList = game.crossList
+                                circleList = game.circleList
+                                dbGame = game
+                                if (host) {
+                                    Log.i("dane host",game.hostCircle.toString()+" "+ crossList.size+" "+ circle)
+                                    if (game.hostCircle && crossList.size > 0 && !circle) _nextMove.value =
+                                        crossList.last()
+                                    else if (!game.hostCircle && circleList.size > 0 && circle) _nextMove.value =
+                                        circleList.last()
+                                } else {
+                                    Log.i("dane nie host",game.hostCircle.toString()+" "+ crossList.size+" "+ circle)
+                                    if (game.hostCircle && circleList.size > 0 && circle) _nextMove.value =
+                                        circleList.last()
+                                    if (!game.hostCircle && crossList.size > 0 && !circle) _nextMove.value =
+                                        crossList.last()
+                                }
+                                //circle = (crossList.size+circleList.size)%2 == 0
+                            }
                         }
                     }
                     it.isFailure -> {

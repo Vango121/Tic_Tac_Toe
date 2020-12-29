@@ -25,6 +25,15 @@ class SingleGameRepository @Inject constructor() {
     fun initReference(lobbyId: String){
         gameReference = database.getReference("/$lobbyId")
     }
+    fun passCircleList(list: List<String>){
+        val reference = gameReference.child("circleList")
+        reference.setValue(list)
+    }
+    fun passCrossList(list: List<String>){
+        val reference = gameReference.child("crossList")
+        reference.setValue(list)
+    }
+
     @ExperimentalCoroutinesApi
     fun getMoves(): Flow<Result<Game>> = callbackFlow{
         val postListener = object : ValueEventListener {

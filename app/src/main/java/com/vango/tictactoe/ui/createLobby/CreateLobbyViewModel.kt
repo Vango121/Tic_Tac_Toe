@@ -30,6 +30,7 @@ class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLo
     val activeGame: LiveData<Int>
         get() = _activeGame
     private var bestOfCount = 1
+    var i = 0 // transitions to game fragment count
 
     init {
         generateLobbyId()
@@ -59,6 +60,7 @@ class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLo
         repository.initializeGameInDB(lobbyIdString,_bestOfValue.value?.toInt()!!)
         fetchGame()
     }
+
     fun getLobbyId(): String = lobbyId
     @ExperimentalCoroutinesApi
     fun fetchGame() {
@@ -67,7 +69,11 @@ class CreateLobbyViewModel @ViewModelInject constructor(val repository: CreateLo
                 when {
                     it.isSuccess -> {
                         val game = it.getOrNull()
-                        _activeGame.postValue(game?.active)
+                        val toreturn = game?.active
+                        if(toreturn==1 && i<1){
+                            i++
+                            _activeGame.postValue(toreturn)
+                        }
 
                     }
                     it.isFailure -> {

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.vango.tictactoe.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,10 +33,16 @@ class MainActivity : AppCompatActivity() {
         Log.i("crere", currentFragment)
         // Insert the fragment by replacing any existing fragment
         val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.container, fragment!!).addToBackStack(
-            fragmentClass.name
-        )
-            .commit()
+        if(currentFragment == "com.vango.tictactoe.ui.createLobby.CreateLobby" || currentFragment == "com.vango.tictactoe.ui.onlineFragment.Online_fragment"){
+            fragmentManager.beginTransaction().replace(R.id.container, fragment!!)
+                .commit()
+        }else{
+            fragmentManager.beginTransaction().replace(R.id.container, fragment!!).addToBackStack(
+                fragmentClass.name
+            )
+                .commit()
+        }
+
     }
 
     fun replaceFragment(fragmentClass: Class<*>, type: String) {
@@ -52,16 +59,17 @@ class MainActivity : AppCompatActivity() {
         currentFragment = fragmentClass.name
         Log.i("crere", currentFragment)
         val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.container, fragment!!)
-            .addToBackStack(fragmentClass.name)
-            .commit()
+            fragmentManager.beginTransaction().replace(R.id.container, fragment!!)
+                .commit()
+
     }
 
     private var i = 0
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            super.onBackPressed()
+        if ((count == 0 && currentFragment !="com.vango.tictactoe.ui.singleGame.SingleGame") || currentFragment == "com.vango.tictactoe.ui.main.MainFragment") {
+            finish()
+            //super.onBackPressed()
         } else {
             if (currentFragment == "com.vango.tictactoe.ui.singleGame.SingleGame") {
                 i++
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     i = 0
                     currentFragment = ""
-                    supportFragmentManager.popBackStack()
+                    replaceFragment(MainFragment::class.java)
                 }
             } else {
                 currentFragment = ""
