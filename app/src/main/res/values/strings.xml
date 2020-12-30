@@ -12,5 +12,7 @@
     <string name="cancel">Cancel</string>
     <string name="enter_lobby_id">Enter lobby id</string>
     <string name="text_copied">Text was copied to the clipboard</string>
+    <string name="best_of">Best of:</string>
+    <string name="lobby_id">Lobby id:</string>
 
 </resources>

@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="280dp"
+            android:layout_width="@dimen/_210sdp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bangers"
             android:shadowColor="@color/black"
@@ -28,7 +28,7 @@
             android:text="@string/tic_tac_toe"
             android:textAllCaps="true"
             android:textColor="@color/secondary"
-            android:textSize="70sp"
+            android:textSize="@dimen/_54ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +45,9 @@
         <!--            app:layout_constraintStart_toStartOf="@id/guidelineLeft"/>-->
         <GridLayout
             android:id="@+id/board"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_width="@dimen/_297sdp"
+            android:layout_height="@dimen/_297sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:background="@color/boardColor"
             android:columnCount="3"
             android:rowCount="3"
@@ -57,72 +57,72 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="0" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="1" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="2" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="3" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="4" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="5" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="6" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
                 android:tag="7" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_99sdp"
+                android:layout_height="@dimen/_99sdp"
                 android:background="@drawable/border"
                 android:onClick="@{viewmodel::boardOnClick}"
                 android:src="@drawable/empty"
@@ -134,17 +134,17 @@
             android:id="@+id/buttonRestart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/secondary"
             android:fontFamily="@font/roboto"
-            android:text="@string/restart"
             android:onClick="@{viewmodel::restartButton}"
-            android:textSize="19sp"
+            android:text="@string/restart"
             android:visibility="gone"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/board" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
