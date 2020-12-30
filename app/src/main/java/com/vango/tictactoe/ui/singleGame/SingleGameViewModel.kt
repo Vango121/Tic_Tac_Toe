@@ -182,9 +182,9 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
     }
 
     @ExperimentalCoroutinesApi
-    fun setGameType(type: String?) {
+    fun setGameType(type: String?): String {
+        var subType: String = ""
         if (type != null) {
-            var subType: String = ""
             if(type.length>7){
                 subType = type.substring(0,7)
             }
@@ -203,6 +203,7 @@ class SingleGameViewModel @ViewModelInject constructor(val repository: SingleGam
                 fetchGame()
             }
         }
+        return subType
     }
 
     @ExperimentalCoroutinesApi

@@ -16,7 +16,6 @@ class OnlineFragmentViewModel @ViewModelInject constructor(val repository: Onlin
         get() = _gameActive
     @ExperimentalCoroutinesApi
     fun connectToLobby(lobbyId: String){
-
         viewModelScope.launch {
             repository.initializeGameInDB(lobbyId).collect {
                 _gameActive.postValue(it)

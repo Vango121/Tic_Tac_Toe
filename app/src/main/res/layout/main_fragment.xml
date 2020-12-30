@@ -10,7 +10,7 @@
     android:background="@color/primary">
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bangers"
         android:shadowColor="@color/black"
